@@ -23,43 +23,43 @@ export default function Login() {
 
         // Prevents page redirection via form submission
         e.preventDefault();
-        fetch('http://localhost:4000/users/login',{
+        fetch('https://blogpostapi-3mjz.onrender.com/users/login', {
 
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
 
-            email: email,
-            password: password
+                email: email,
+                password: password
 
+            })
         })
-    })
-    .then(res => res.json())
-    .then(data => {
+            .then(res => res.json())
+            .then(data => {
 
-            console.log(data);
+                console.log(data);
 
-            localStorage.setItem('token', data.access);
-            retrieveUserDetails(data.access);
+                localStorage.setItem('token', data.access);
+                retrieveUserDetails(data.access);
 
-            Swal.fire({
-                title: "Login Successful",
-                icon: "success",
-                text: "Welcome to Inventory!"
-            });
-        
-        
-    })
+                Swal.fire({
+                    title: "Login Successful",
+                    icon: "success",
+                    text: "Welcome to Inventory!"
+                });
 
-    setEmail('');
-    setPassword('');
+
+            })
+
+        setEmail('');
+        setPassword('');
 
     }
 
     const retrieveUserDetails = (token) => {
-        fetch('http://localhost:4000/users/details', {
+        fetch('https://blogpostapi-3mjz.onrender.com/users/details', {
             headers: {
                 Authorization: `Bearer ${token}`
             }

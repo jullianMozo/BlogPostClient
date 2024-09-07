@@ -26,7 +26,7 @@ const CreateBlogPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/blogs", // Assuming this is the route for creating posts
+        "https://blogpostapi-3mjz.onrender.com/blogs", // Assuming this is the route for creating posts
         post,
         {
           headers: {

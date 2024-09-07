@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import Button from 'react-bootstrap/Button';
-import { Card } from 'react-bootstrap';
-import UserContext from '../UserContext'; // Import the UserContext
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Button from "react-bootstrap/Button";
+import { Card } from "react-bootstrap";
+import UserContext from "../UserContext"; // Import the UserContext
 
 const BlogPostsList = () => {
   const [posts, setPosts] = useState([]);
@@ -16,31 +16,36 @@ const BlogPostsList = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/blogs');
+      const response = await axios.get(
+        "https://blogpostapi-3mjz.onrender.com/blogs"
+      );
       setPosts(response.data);
     } catch (err) {
-      console.error('Error fetching posts:', err);
+      console.error("Error fetching posts:", err);
     }
   };
 
   const handleDeletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:4000/blogs/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure token is sent with the request
-        },
-      });
+      await axios.delete(
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is sent with the request
+          },
+        }
+      );
       setPosts(posts.filter((post) => post._id !== postId));
 
       Swal.fire({
-        icon: 'success',
-        title: 'Post Deleted!',
-        text: 'The post has been successfully deleted.',
+        icon: "success",
+        title: "Post Deleted!",
+        text: "The post has been successfully deleted.",
         timer: 1500,
         showConfirmButton: false,
       });
     } catch (err) {
-      console.error('Error deleting post:', err);
+      console.error("Error deleting post:", err);
     }
   };
 

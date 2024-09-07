@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
-
 
 const ViewBlog = ({ user }) => {
   const { postId } = useParams();
@@ -19,9 +18,11 @@ const ViewBlog = ({ user }) => {
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/blogs/${postId}`);
+      const response = await axios.get(
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}`
+      );
       setPost(response.data);
-      console.log(post, 'here fetch viewblog');
+      console.log(post, "here fetch viewblog");
     } catch (err) {
       console.error("Error fetching post:", err);
     }
@@ -35,7 +36,7 @@ const ViewBlog = ({ user }) => {
 
     try {
       await axios.post(
-        `http://localhost:4000/blogs/${postId}/comments`,
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}/comments`,
         {
           text: newComment,
         },
@@ -49,13 +50,12 @@ const ViewBlog = ({ user }) => {
       setNewComment("");
       fetchPost(); // Refresh comments after adding
       Swal.fire({
-        icon: 'success',
-        title: 'Comment Added!',
-        text: 'Your comment has been successfully added.',
+        icon: "success",
+        title: "Comment Added!",
+        text: "Your comment has been successfully added.",
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
-
     } catch (err) {
       console.error("Error adding comment:", err);
     }
@@ -64,7 +64,7 @@ const ViewBlog = ({ user }) => {
   const handleDeleteComment = async (commentId) => {
     try {
       await axios.delete(
-        `http://localhost:4000/blogs/${postId}/comments/${commentId}`,
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}/comments/${commentId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -74,19 +74,18 @@ const ViewBlog = ({ user }) => {
       fetchPost();
 
       Swal.fire({
-        icon: 'success',
-        title: 'Comment Deleted!',
-        text: 'The comment has been successfully deleted.',
+        icon: "success",
+        title: "Comment Deleted!",
+        text: "The comment has been successfully deleted.",
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
-
     } catch (err) {
       console.error("Error deleting comment:", err);
       Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Failed to delete the comment.',
+        icon: "error",
+        title: "Error!",
+        text: "Failed to delete the comment.",
       });
     }
   };
@@ -104,7 +103,8 @@ const ViewBlog = ({ user }) => {
         {post.comments.map((comment) => (
           <div key={comment._id} className="comment">
             <p>{comment.text}</p>
-            <p>By: {comment.author.username}</p> {/* Changed to display username */}
+            <p>By: {comment.author.username}</p>{" "}
+            {/* Changed to display username */}
             {isAdmin && (
               <Button onClick={() => handleDeleteComment(comment._id)}>
                 Delete Comment

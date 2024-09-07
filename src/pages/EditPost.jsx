@@ -17,7 +17,7 @@ const EditPost = () => {
   const fetchPost = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/blogs/${postId}`,
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,7 +46,7 @@ const EditPost = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:4000/blogs/${postId}`,
+        `https://blogpostapi-3mjz.onrender.com/blogs/${postId}`,
         { title: post.title, content: post.content },
         {
           headers: {

@@ -30,7 +30,7 @@ export default function Register() {
 
         e.preventDefault();
 
-        fetch('http://localhost:4000/users/register', {
+        fetch('https://blogpostapi-3mjz.onrender.com/users/register', {
 
             method: 'POST',
             headers: {
